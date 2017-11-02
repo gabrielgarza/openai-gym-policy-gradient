@@ -3,7 +3,7 @@ from policy_gradient import PolicyGradient
 import matplotlib.pyplot as plt
 import numpy as np
 
-env = gym.make('LunarLander-v2')
+env = gym.make('Acrobot-v1')
 env = env.unwrapped
 
 # Policy gradient has high variance, seed for reproducability
@@ -18,7 +18,7 @@ print("env.observation_space.low", env.observation_space.low)
 RENDER_ENV = False
 EPISODES = 500
 rewards = []
-RENDER_REWARD_MIN = -50
+RENDER_REWARD_MIN = -500
 
 if __name__ == "__main__":
 
