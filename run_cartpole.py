@@ -22,11 +22,18 @@ RENDER_REWARD_MIN = 800
 
 if __name__ == "__main__":
 
+
+    # Load checkpoint
+    load_path = None # "weights/CartPole-v0.ckpt"
+    save_path = "weights/CartPole-v0.ckpt"
+
     PG = PolicyGradient(
         n_x = env.observation_space.shape[0],
         n_y = env.action_space.n,
         learning_rate=0.01,
-        reward_decay=0.95
+        reward_decay=0.95,
+        load_path=load_path,
+        save_path=save_path
     )
 
 
@@ -44,7 +51,7 @@ if __name__ == "__main__":
             # 2. Take action in the environment
             observation_, reward, done, info = env.step(action)
 
-            # 4. Store transition for training
+            # 3. Store transition for training
             PG.store_transition(observation, action, reward)
 
             if done:
@@ -57,7 +64,7 @@ if __name__ == "__main__":
                 print("Reward: ", episode_rewards_sum)
                 print("Max reward so far: ", max_reward_so_far)
 
-                # 5. Train neural network
+                # 4. Train neural network
                 discounted_episode_rewards_norm = PG.learn()
 
                 # Render env if we get to rewards minimum

@@ -13,7 +13,9 @@ class PolicyGradient:
         n_x,
         n_y,
         learning_rate=0.01,
-        reward_decay=0.95
+        reward_decay=0.95,
+        load_path=None,
+        save_path=None
     ):
 
         self.n_x = n_x
@@ -21,9 +23,14 @@ class PolicyGradient:
         self.lr = learning_rate
         self.gamma = reward_decay
 
+        if save_path is not None:
+            self.save_path = save_path
+
         self.episode_observations, self.episode_actions, self.episode_rewards = [], [], []
 
         self.build_network()
+
+        self.cost_history = []
 
         self.sess = tf.Session()
 
@@ -32,6 +39,14 @@ class PolicyGradient:
         tf.summary.FileWriter("logs/", self.sess.graph)
 
         self.sess.run(tf.global_variables_initializer())
+
+        # 'Saver' op to save and restore all the variables
+        self.saver = tf.train.Saver()
+
+        # Restore model
+        if load_path is not None:
+            self.load_path = load_path
+            self.saver.restore(self.sess, self.load_path)
 
     def store_transition(self, s, a, r):
         """
@@ -74,7 +89,7 @@ class PolicyGradient:
 
     def learn(self):
         # Discount and normalize episode reward
-        discounted_episode_rewards_norm = self._discount_and_norm_rewards()
+        discounted_episode_rewards_norm = self.discount_and_norm_rewards()
 
         # Train on episode
         self.sess.run(self.train_op, feed_dict={
@@ -86,9 +101,14 @@ class PolicyGradient:
         # Reset the episode data
         self.episode_observations, self.episode_actions, self.episode_rewards  = [], [], []
 
+        # Save checkpoint
+        if self.save_path is not None:
+            save_path = self.saver.save(self.sess, self.save_path)
+            print("Model saved in file: %s" % save_path)
+
         return discounted_episode_rewards_norm
 
-    def _discount_and_norm_rewards(self):
+    def discount_and_norm_rewards(self):
         discounted_episode_rewards = np.zeros_like(self.episode_rewards)
         cumulative = 0
         for t in reversed(range(len(self.episode_rewards))):
@@ -141,3 +161,12 @@ class PolicyGradient:
 
         with tf.name_scope('train'):
             self.train_op = tf.train.AdamOptimizer(self.lr).minimize(loss)
+
+    def plot_cost(self):
+        import matplotlib
+        matplotlib.use("MacOSX")
+        import matplotlib.pyplot as plt
+        plt.plot(np.arange(len(self.cost_history)), self.cost_history)
+        plt.ylabel('Cost')
+        plt.xlabel('Training Steps')
+        plt.show()

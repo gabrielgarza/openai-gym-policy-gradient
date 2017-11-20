@@ -70,7 +70,7 @@ class PolicyGradient:
 
     def learn(self):
         # Discount and normalize episode reward
-        discounted_episode_rewards_norm = self._discount_and_norm_rewards()
+        discounted_episode_rewards_norm = self.discount_and_norm_rewards()
 
         # Train on episode
         self.sess.run(self.train_op, feed_dict={
@@ -84,7 +84,7 @@ class PolicyGradient:
 
         return discounted_episode_rewards_norm
 
-    def _discount_and_norm_rewards(self):
+    def discount_and_norm_rewards(self):
         discounted_episode_rewards = np.zeros_like(self.episode_rewards)
         cumulative = 0
         for t in reversed(range(len(self.episode_rewards))):
