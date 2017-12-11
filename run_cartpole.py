@@ -24,8 +24,8 @@ if __name__ == "__main__":
 
 
     # Load checkpoint
-    load_path = "weights/CartPole-v0.ckpt"
-    save_path = "weights/CartPole-v0-2.ckpt"
+    load_path = "/output/weights/CartPole-v0.ckpt"
+    save_path = "/output/weights/CartPole-v0-2.ckpt"
 
     PG = PolicyGradient(
         n_x = env.observation_space.shape[0],
