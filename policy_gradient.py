@@ -23,6 +23,7 @@ class PolicyGradient:
         self.lr = learning_rate
         self.gamma = reward_decay
 
+        self.save_path = None
         if save_path is not None:
             self.save_path = save_path
 
