@@ -11,14 +11,15 @@ The idea is to create a deep policy network that is intelligent enough to genera
 
 ## Cartpole
 
-Initially, the agent is quite dumb, but is exploring the action space:
+Initially, the agent is quite dumb, but it's exploring the state/action/reward space:
 ![Untrained](https://user-images.githubusercontent.com/1076706/33820098-7e43df3a-de02-11e7-81fe-970f6df33e1c.gif)
 
-As more episodes go by, it starts to get a bit better:
+As more episodes go by, it starts to get better by learning from experience and doing less exploration(getting more greedy):
 ![pg-cartpole-2](https://user-images.githubusercontent.com/1076706/33820104-83fa04e0-de02-11e7-9dca-34f7a3f45226.gif)
 
-Eventually, the agent masters the game:
+Eventually, the agent masters the game (trained on my Macbook Pro for ~10 minutes):
 ![pg-cartpole-trained](https://user-images.githubusercontent.com/1076706/33820246-4bd347e2-de03-11e7-825d-58c212c346c6.gif)
 
 After 297 episodes the agent scored 617,332!
+
 ![record](https://user-images.githubusercontent.com/1076706/33820269-67d42344-de03-11e7-903e-bbf9b8e0ab9b.png)
