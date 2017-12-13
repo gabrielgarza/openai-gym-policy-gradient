@@ -18,14 +18,14 @@ print("env.observation_space.low", env.observation_space.low)
 RENDER_ENV = False
 EPISODES = 500
 rewards = []
-RENDER_REWARD_MIN = 800
+RENDER_REWARD_MIN = 50
 
 if __name__ == "__main__":
 
 
     # Load checkpoint
-    load_path = "/output/weights/CartPole-v0.ckpt"
-    save_path = "/output/weights/CartPole-v0-2.ckpt"
+    load_path = None #"output/weights/CartPole-v0.ckpt"
+    save_path = None #"output/weights/CartPole-v0-temp.ckpt"
 
     PG = PolicyGradient(
         n_x = env.observation_space.shape[0],
