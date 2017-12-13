@@ -1,4 +1,5 @@
 # Reinforcement Learning with Policy Gradient
+### Uses a 3 layer neural network as the policy network
 
 The idea is to create a deep policy network that is intelligent enough to generalize to most games in OpenAI's Gym.
 
@@ -26,7 +27,7 @@ Finally after about 3K episodes the agent can land pretty well:
 Initially, the agent is quite dumb, but it's exploring the state/action/reward space:
 ![Untrained](https://user-images.githubusercontent.com/1076706/33820098-7e43df3a-de02-11e7-81fe-970f6df33e1c.gif)
 
-As more episodes go by, it starts to get better by learning from experience and doing less exploration(getting more greedy):
+As more episodes go by, it starts to get better by learning from experience (using reward guided loss):
 ![pg-cartpole-2](https://user-images.githubusercontent.com/1076706/33820104-83fa04e0-de02-11e7-9dca-34f7a3f45226.gif)
 
 Eventually, the agent masters the game (trained on my Macbook Pro for ~10 minutes):
